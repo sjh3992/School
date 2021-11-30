@@ -81,6 +81,7 @@ def collision():
                     field[i][j] = 15
                 elif field[i][j] == 6:
                     field[i][j] = 16
+                    
                 else:
                     field[i][j] = 17
 

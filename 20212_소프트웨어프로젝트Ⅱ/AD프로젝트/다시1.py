@@ -1,8 +1,8 @@
 import pygame, random, sys
 from block_data import block_data, color
 
-field = []
-shape = []
+field = list()
+shape = list()
 score = 0
 
 def field_init():
@@ -31,12 +31,23 @@ def collision_test():
     if shape == []:
         return True
     for x in shape:
-        if field[x[0]+1][x[1]] != 0 and field[x[0]+1][x[1]] != now_shape:
+        if field[x[0]+1][x[1]] == 8 or field[x[0]+1][x[1]] == 10:
             print("collision")
             return True
-        
     print("not collision")
     return False
+
+def line_test():
+    global score
+    flag = True
+    for i in range(23, 3, -1):
+        for j in range(1, 11, 1):
+            if field[i][j] != 10:
+                flag = False
+                break
+        if flag == True:
+            tetris(i)
+            score += 100
 
 def end_test():
     for i in range(0, 4, 1):
@@ -47,7 +58,14 @@ def end_test():
 
 def collision():
     for x in shape:
-        field[x[0]][x[1]] += 10
+        field[x[0]][x[1]] = 10
+
+def tetris(num):
+    for i in range(1, 11, 1):
+        field[num][i] = 0
+    for i in range(num-1, 3, -1):
+        for j in range(1, 11, 1):
+            field[i+1][j] = field[i][j]
 
 def down():
     print("down")
@@ -60,9 +78,27 @@ def down():
 
 def left():
     print("left")
+    for i in range(0, len(shape), 1):
+        if shape[i][1] <= 1:
+            return
+    for x in shape:
+        field[x[0]][x[1]] = 0
+    for i in range(0, len(shape), 1):
+        shape[i][1] -= 1
+    for x in shape:
+        field[x[0]][x[1]] = color[now_shape]
     
 def right():
     print("right")
+    for i in range(0, len(shape), 1):
+        if shape[i][1] >= 10:
+            return
+    for x in shape:
+        field[x[0]][x[1]] = 0
+    for i in range(0, len(shape), 1):
+        shape[i][1] += 1
+    for x in shape:
+        field[x[0]][x[1]] = color[now_shape]
 
 def rotate():
     print("rotate")
@@ -128,7 +164,7 @@ clock = pygame.time.Clock()
 
 while True:
     # frame
-    clock.tick(10)
+    clock.tick(1)
 
     # main event loop
     for event in pygame.event.get():
@@ -136,7 +172,7 @@ while True:
             pygame.quit()
             sys.exit()
         elif event.type == pygame.KEYDOWN:
-            if evnet.key == pygame.K_LEFT:
+            if event.key == pygame.K_LEFT:
                 left()
             elif event.key == pygame.K_RIGHT:
                 right()
@@ -158,3 +194,5 @@ while True:
     else:
         down()
         drawing()
+        
+    line_test()

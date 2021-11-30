@@ -130,7 +130,7 @@ color = (
     (  0, 176, 240),    # block #7  (SKYBLUE)   [7]
     (191, 191, 191),    # wall      (GRAY)      [8]
     (  0,   0,   0),    # transparent wall      [9]
-    (),                 #                       [10]
+    (255, 255, 255),    # collision block       [10]
     (255, 255,   0),    # block #1 c(YELLOW)    [11]
     (255, 192,   0),    # block #2 c(ORANGE)    [12]
     (  0, 112, 192),    # block #3 c(BLUE)      [13]
