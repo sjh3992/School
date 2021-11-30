@@ -1,5 +1,5 @@
 block_data = (
-    ((), (), (), ()),
+    (),
     (   # block #1
         (1, 1,
          1, 1),
@@ -120,12 +120,21 @@ block_data = (
          0, 0, 0, 7)))
 
 color = (
-    (  0,   0,   0),    # background(BLACK)
-    (255, 255,   0),    # block #1  (YELLOW)
-    (255, 192,   0),    # block #2  (ORANGE)
-    (  0, 112, 192),    # block #3  (BLUE)
-    (146, 208,  80),    # block #4  (GREEN)
-    (112,  48, 160),    # block #5  (VIOLET)
-    (255,   0,   0),    # block #6  (RED)
-    (  0, 176, 240),    # block #7  (SKYBLUE)
-    (191, 191, 191))    # wall      (GRAY)
+    (  0,   0,   0),    # background(BLACK)     [0]
+    (255, 255,   0),    # block #1  (YELLOW)    [1]
+    (255, 192,   0),    # block #2  (ORANGE)    [2]
+    (  0, 112, 192),    # block #3  (BLUE)      [3]
+    (146, 208,  80),    # block #4  (GREEN)     [4]
+    (112,  48, 160),    # block #5  (VIOLET)    [5]
+    (255,   0,   0),    # block #6  (RED)       [6]
+    (  0, 176, 240),    # block #7  (SKYBLUE)   [7]
+    (191, 191, 191),    # wall      (GRAY)      [8]
+    (  0,   0,   0),    # transparent wall      [9]
+    (),                 #                       [10]
+    (255, 255,   0),    # block #1 c(YELLOW)    [11]
+    (255, 192,   0),    # block #2 c(ORANGE)    [12]
+    (  0, 112, 192),    # block #3 c(BLUE)      [13]
+    (146, 208,  80),    # block #4 c(GREEN)     [14]
+    (112,  48, 160),    # block #5 c(VIOLET)    [15]
+    (255,   0,   0),    # block #6 c(RED)       [16]
+    (  0, 176, 240))    # block #7 c(SKYBLUE)   [17]
