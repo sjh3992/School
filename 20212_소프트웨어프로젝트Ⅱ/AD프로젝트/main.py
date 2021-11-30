@@ -5,6 +5,7 @@ field = list()
 shape = list()
 score = 0
 rotation = 0
+t = 0
 
 def field_init():
     for i in range(0, 4, 1):
@@ -21,9 +22,9 @@ def drawing():
     name_text = [font.render("20213009", True, (255, 255, 255))]
     name_text.append(font.render("서지훈", True, (255, 255, 255)))
     score_text = font.render("점수 : " + str(score), True, (255, 255, 255))
-    next_text = font.render("다음 도형", True, (255, 255, 255))
+    #next_text = font.render("다음 도형", True, (255, 255, 255))
     screen.blit(score_text, (280, 100))
-    screen.blit(next_text, (280, 140))
+    #screen.blit(next_text, (280, 140))
     screen.blit(name_text[0], (280, 40))
     screen.blit(name_text[1], (280, 60))
     pygame.display.flip()
@@ -33,22 +34,21 @@ def collision_test():
         return True
     for x in shape:
         if field[x[0]+1][x[1]] == 8 or field[x[0]+1][x[1]] == 10:
-            #print("collision")
+            print("collision")
             return True
-    #print("not collision")
+    print("not collision")
     return False
 
 def line_test():
-    global score
-    flag = True
+    flag = 0
     for i in range(23, 3, -1):
         for j in range(1, 11, 1):
-            if field[i][j] != 10:
-                flag = False
+            if field[i][j] == 10:
+                flag += 1
+            else:
                 break
-        if flag == True:
+        if flag == 10:
             tetris(i)
-            score += 100
 
 def end_test():
     for i in range(0, 4, 1):
@@ -62,6 +62,9 @@ def collision():
         field[x[0]][x[1]] = 10
 
 def tetris(num):
+    global t
+    tetris_sound.play()
+    t = 1
     for i in range(1, 11, 1):
         field[num][i] = 0
     for i in range(num-1, 3, -1):
@@ -69,7 +72,7 @@ def tetris(num):
             field[i+1][j] = field[i][j]
 
 def down():
-    #print("down")
+    print("down")
     for x in shape:
         field[x[0]][x[1]] = 0
     for i in range(0, len(shape), 1):
@@ -78,7 +81,7 @@ def down():
         field[x[0]][x[1]] = now_shape
 
 def left():
-    #print("left")
+    print("left")
     for i in range(0, len(shape), 1):
         if shape[i][1] <= 1:
             return
@@ -90,7 +93,7 @@ def left():
         field[x[0]][x[1]] = color[now_shape]
     
 def right():
-    #print("right")
+    print("right")
     for i in range(0, len(shape), 1):
         if shape[i][1] >= 10:
             return
@@ -161,6 +164,9 @@ def shapeNow():
 pygame.init()
 field_init()
 font = pygame.font.Font('부산바다체.ttf', 20)
+tetris_sound = pygame.mixer.Sound("tetris.ogg")
+background_sound = pygame.mixer.Sound("background.ogg")
+background_sound.play(-1)
 
 # set screen
 size = (400, 540)
@@ -202,5 +208,9 @@ while True:
     else:
         down()
         drawing()
-        
+
+    t = 0
     line_test()
+    if t == 1:
+        score += 100
+        t = 0
