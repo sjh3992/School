@@ -4,6 +4,7 @@ from block_data import block_data, color
 field = list()
 shape = list()
 score = 0
+rotation = 0
 
 def field_init():
     for i in range(0, 4, 1):
@@ -101,7 +102,24 @@ def right():
         field[x[0]][x[1]] = color[now_shape]
 
 def rotate():
-    print("rotate")
+    global rotation
+    if now_shape != 1:
+        print("rotate")
+        '''
+        if rotation == 0:
+            rotation = 1
+        elif rotation == 1:
+            rotation = 2
+        elif rotation == 2:
+            rotation = 3
+        else:
+            rotation = 0
+        '''
+        rotation += 1
+        for x in shape:
+            field[x[0]][x[1]] = 0
+            
+        shapeNow()
 
 def game_end():
     end_text = font.render("GAME OVER", True, (255, 0, 0))
@@ -114,7 +132,7 @@ def game_end():
                 sys.exit()
 
 def shapeNow():
-    global shape
+    global shape, rotation
     shape.clear()
     
     print("now shape:", now_shape)
@@ -129,19 +147,19 @@ def shapeNow():
         field[3][5] = 1
         field[3][6] = 1
         shape = [[2, 5], [2, 6], [3, 5], [3, 6]]
-
     elif now_shape == 7:
-        field[3][4] = 7
-        field[3][5] = 7
-        field[3][6] = 7
-        field[3][7] = 7
-        shape = [[3, 4], [3, 5], [3, 6], [3, 7]]
-
+        s = 0
+        for i in range(0, 4, 1):
+            for j in range(4, 8, 1):
+                field[i][j] = block_data[7][rotation % 4][s]
+                s += 1
+                if field[i][j] != 0:
+                    shape.append([i, j])
     else:
         s = 0
         for i in range(1, 4, 1):
             for j in range(4, 7, 1):
-                field[i][j] = block_data[now_shape][0][s]
+                field[i][j] = block_data[now_shape][rotation % 4][s]
                 s += 1
                 if field[i][j] != 0:
                     shape.append([i, j])
