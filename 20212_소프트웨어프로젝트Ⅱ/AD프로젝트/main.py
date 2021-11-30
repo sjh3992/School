@@ -33,9 +33,9 @@ def collision_test():
         return True
     for x in shape:
         if field[x[0]+1][x[1]] == 8 or field[x[0]+1][x[1]] == 10:
-            print("collision")
+            #print("collision")
             return True
-    print("not collision")
+    #print("not collision")
     return False
 
 def line_test():
@@ -69,7 +69,7 @@ def tetris(num):
             field[i+1][j] = field[i][j]
 
 def down():
-    print("down")
+    #print("down")
     for x in shape:
         field[x[0]][x[1]] = 0
     for i in range(0, len(shape), 1):
@@ -78,7 +78,7 @@ def down():
         field[x[0]][x[1]] = now_shape
 
 def left():
-    print("left")
+    #print("left")
     for i in range(0, len(shape), 1):
         if shape[i][1] <= 1:
             return
@@ -90,7 +90,7 @@ def left():
         field[x[0]][x[1]] = color[now_shape]
     
 def right():
-    print("right")
+    #print("right")
     for i in range(0, len(shape), 1):
         if shape[i][1] >= 10:
             return
@@ -105,16 +105,6 @@ def rotate():
     global rotation
     if now_shape != 1:
         print("rotate")
-        '''
-        if rotation == 0:
-            rotation = 1
-        elif rotation == 1:
-            rotation = 2
-        elif rotation == 2:
-            rotation = 3
-        else:
-            rotation = 0
-        '''
         rotation += 1
         for x in shape:
             field[x[0]][x[1]] = 0
