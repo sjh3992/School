@@ -8,11 +8,6 @@ class VertexNode {
   }
 }
 
-@functionalInterface
-interface GraphListVisitor {
-  void visit( int data );
-}
-
 class Queue {
   int Qsize;    // 큐의 용량
   int front;    // 첫 번째 요소 커서
@@ -43,7 +38,7 @@ class Queue {
     if( num <= 0 ) {
       throw new EmptyQueueException( );
     }
-    int x = que[front++];
+    int x = queue[front++];
     num -= 1;
     if( front == Qsize ) {
       front = 0;
@@ -58,6 +53,10 @@ class Queue {
   int size() {
     return num;
   }
+}
+
+interface GraphListVisitor {
+  void visit( int data );
 }
 
 public class GraphList {
@@ -104,9 +103,15 @@ public class GraphList {
     while( q.isEmpty() ) {
       int visit = q.remove();
       VertexNode select = this.heads[visit];
+      int size = 1;
 
-      for( int i = 0; i < select.size(); i++ ) {
-        int next = select.remove();
+      while( select.link != null ) {
+        size += 1;
+      }
+
+      while( size-- > 0 ) {
+        int next = select.data;
+        select = select.link;
         if( ! visited[next] ) {
           visited[next] = true;
           q.add( next );
@@ -128,8 +133,8 @@ public class GraphList {
     G.add( 5, 7 );
     G.add( 6, 7 );
 
-    GraphListVisitor f = (node) -> {
-      System.out.print( node.data + " -> " );
+    GraphListVisitor f = ( node ) -> {
+      System.out.println( node.data + " -> " );
     };
 
     G.bfs( 0, f );
