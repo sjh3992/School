@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "najax": "^1.0.7",
+    "request": "^2.88.2"
+  }
+}
