@@ -9,11 +9,11 @@ class VertexNode {
 }
 
 class Queue {
-  int Qsize;    // 큐의 용량
-  int front;    // 첫 번째 요소 커서
-  int rear;     // 마지막 요소 커서
-  int num;      // 현재 데이터 수
-  int[] queue;  // 큐 본체
+  int Qsize;
+  int front;
+  int rear;
+  int num;
+  int[] queue;
 
   class EmptyQueueException extends RuntimeException {
     EmptyQueueException( ) { }
@@ -60,8 +60,8 @@ interface GraphListVisitor {
 }
 
 public class GraphList {
-  boolean directed; // 방향그래프 여부
-  int size; // vertex의 개수
+  boolean directed;
+  int size;
   VertexNode[] heads;
 
   GraphList( int size, boolean directed ) {
@@ -120,7 +120,7 @@ public class GraphList {
     }
   }
 
-  public static void main() {
+  public static void main(String[] args) {
     GraphList G = new GraphList( 8, false );
     G.add( 0, 1 );
     G.add( 0, 2 );
@@ -134,10 +134,12 @@ public class GraphList {
     G.add( 6, 7 );
 
     GraphListVisitor f = ( node ) -> {
-      System.out.println( node.data + " -> " );
+      System.out.println( node + " -> " );
     };
+    System.out.println("jhhh");
 
     G.bfs( 0, f );
+
     System.out.println();
     G.bfs( 3, f );
   }
